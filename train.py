@@ -28,17 +28,17 @@ from ultralytics import YOLO
 
 # 加载模型
 #model = YOLO(os.path.join(repo_root, "runs/detect/train2/weights/best.pt"))
-model = YOLO(os.path.join(repo_root, "ultralytics-main/ultralytics/cfg/models/v8/yolov8s.yaml"))
+#model = YOLO(os.path.join(repo_root, "ultralytics-main/ultralytics/cfg/models/v8/yolov8s.yaml"))
 #从0开始？用上面注释掉的代码
-#model = YOLO(os.path.join(repo_root, "ultralytics-main/ultralytics/cfg/models/11/yolo11s.yaml"))
+model = YOLO(os.path.join(repo_root, "ultralytics-main/ultralytics/cfg/models/11/sag-s.yaml"))
 # 训练模型 - 修正数据集路径
-data_path = os.path.join(repo_root, "datasets/gc10-det yolo/data.yaml")
-#data_path = os.path.join(repo_root, "datasets/ImageSets/sets.yaml")
+#data_path = os.path.join(repo_root, "datasets/gc10-det yolo/data.yaml")
+data_path = os.path.join(repo_root, "datasets/ImageSets/sets.yaml")
 results = model.train(
     data=data_path,
     epochs=400,
     batch=16,
-    imgsz=600,
+    imgsz=224,
     optimizer="AdamW",
     lr0=0.001,
 
