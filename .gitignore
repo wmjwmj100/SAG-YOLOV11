@@ -1,0 +1,14 @@
+# 依赖目录
+runs/
+
+# 缓存文件
+*.log
+.DS_Store
+
+# 环境配置
+.env
+.env.local
+
+# IDE配置
+.idea/
+.vscode/

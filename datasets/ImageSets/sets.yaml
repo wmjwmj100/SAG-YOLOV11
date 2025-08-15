@@ -1,0 +1,11 @@
+# 数据集根目录
+path: /data/ultralytics-main/ultralytics-main/datasets/ImageSets   # 只需指到这一层
+
+# 三件套：直接写子目录名（相对 path）
+train: train                   # 实际路径 ../datasets/my_dataset/train
+val:   test
+test:  test                    # 可选
+
+# 类别
+nc: 6
+names: ['0', '1', '2','3','4','5']

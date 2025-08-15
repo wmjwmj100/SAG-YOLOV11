@@ -1,0 +1,42 @@
+
+nc: 80 # number of classes
+scales: # model compound scaling constants, i.e. 'model=yolo11n.yaml' will call yolo11.yaml with scale 'n'
+  # [depth, width, max_channels]
+  n: [1, 1, 1024] # summary: 181 layers, 2624080 parameters, 2624064 gradients, 6.6 GFLOPs
+  s: [0.50, 0.50, 1024] # summary: 181 layers, 9458752 parameters, 9458736 gradients, 21.7 GFLOPs
+  m: [0.50, 1.00, 512] # summary: 231 layers, 20114688 parameters, 20114672 gradients, 68.5 GFLOPs
+  l: [1.00, 1.00, 512] # summary: 357 layers, 25372160 parameters, 25372144 gradients, 87.6 GFLOPs
+  x: [1.00, 1.50, 512] # summary: 357 layers, 56966176 parameters, 56966160 gradients, 196.0 GFLOPs
+
+# YOLO11n backbone
+backbone:
+  # [from, repeats, module, args]
+  - [-1, 1, Conv, [64, 3, 1]] # 0-P1/2
+  - [-1,1,DM,[128,2]] #1
+  - [-1,1,DFEB,[128]] #E0
+  - [-1,1,DM,[256,2]]
+  - [-1,1,DFEB,[256]] #4 E1
+  - [-1,1,DM,[512,2]]
+  - [-1,1,DFEB,[512]] #6 E2
+  - [-1,1,DM,[1024,2]]
+  - [-1,1,DFEB,[1024]] #8 E3
+  - [-1,1,DML,[1024]] # E33
+  - [-1,1,UM,[512,2]] #10
+  - [[-1,6],1,Concat,[1]]
+  - [-1,1,Conv,[512,1,1]]
+  - [-1,1,DFEB,[512]] #13 F2
+  - [-1,1,UM,[256,2]]
+  - [[-1,4],1,Concat,[1]]
+  - [-1,1,Conv,[256,1,1]]
+  - [-1,1,DFEB,[256]] #17 F1
+  - [9,1,DFEB,[1024]] # 18 F3
+  - [[17,13],1,SAG,[512,256,512]]
+  - [-1,1,DFEB,[512]] # 20 F22
+  - [[-1,18],1,SAG,[1024,512,1024]]
+  - [-1,1,DFEB,[1024]] #22 F33
+
+
+# YOLO11n head
+
+head:
+  - [[17, 20, 21], 1, Detect, [nc]] # Detect(P3, P4, P5)
