@@ -29,7 +29,7 @@ from ultralytics import YOLO
 
 if __name__ == "__main__":
     # Load a model
-    pth_path = r"/data/ultralytics-main/ultralytics-main/runs/detect/train10/weights/best.pt"
+    pth_path = r"/data/ultralytics-main/ultralytics-main/neu-det-sag/weights/best.pt"
     # model = YOLO('yolov8n.pt')  # load an official model
     model = YOLO(pth_path)  # load a custom model
 
